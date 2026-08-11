@@ -3,7 +3,7 @@ import search from '../assets/searchLogo.png';
 import drop from '../assets/drop.png';
 import Product_card from './Product_card';
 import axios from 'axios';
-import { div } from 'framer-motion/client';
+
 interface Product {
     product_id: number;
     product_img: string;
@@ -65,6 +65,8 @@ const Products_list = () => {
                 authorization:`Bearer ${token}`
             }
         })
+        console.log(res);
+        
     }
     useEffect(() => {
         fetchProducts();

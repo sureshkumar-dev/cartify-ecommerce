@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import  { useEffect, useState } from 'react'
 import LogOutIcon from '../assets/seller/logout.png'
 import { Users, Store, PackageCheck, ShoppingBag, Eye, Check, X } from "lucide-react";
 import { useNavigate } from 'react-router-dom';

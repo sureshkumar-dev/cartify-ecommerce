@@ -1,7 +1,7 @@
 import React, { useState, type ChangeEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
-import Navbar from '../components/Navbar'
+
 import Cart from '../assets/cartimage.png'
 import AuthBtn from '../components/AuthBtn'
 import Input from '../components/Input'

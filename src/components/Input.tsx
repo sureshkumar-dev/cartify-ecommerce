@@ -1,5 +1,5 @@
-import { label } from 'framer-motion/client'
-import React, { type ChangeEvent } from 'react'
+
+import  { type ChangeEvent } from 'react'
 type ip_props = {
     label: string,
     placeholder: string,

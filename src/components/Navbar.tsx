@@ -1,4 +1,4 @@
-import React, { useEffect, useState, type JSX } from 'react'
+import  { useEffect, useState, type JSX } from 'react'
 import { motion } from 'framer-motion'
 import smacc from '../assets/sidebar/account.png';
 import smhome from '../assets/sidebar/home.png';

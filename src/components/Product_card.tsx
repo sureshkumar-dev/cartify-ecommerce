@@ -1,7 +1,7 @@
-import React from 'react'
+
 import { type JSX } from 'react';
 import { motion } from 'framer-motion'
-import Products from '../pages/Products';
+
 type card_props = {
     img: string,
     p_name: string,

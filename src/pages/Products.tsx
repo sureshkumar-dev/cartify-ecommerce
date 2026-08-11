@@ -1,4 +1,4 @@
-import React from 'react'
+
 import Navbar from '../components/Navbar'
 import Products_list from '../components/Products_list'
 import Footer from '../components/Footer'

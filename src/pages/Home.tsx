@@ -5,7 +5,7 @@ import Navbar from '../components/Navbar';
 import Herosection from '../components/Herosection';
 import Trending_products from '../components/Trending_products';
 import Footer from '../components/Footer';
-import { header } from 'framer-motion/client';
+
 const Home = (): JSX.Element => {
   const fetchProfile = async (): Promise<void> => {
     try {

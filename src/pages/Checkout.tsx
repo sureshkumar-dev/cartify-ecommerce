@@ -13,7 +13,7 @@ import bank from '../assets/bank.png'
 import upi from '../assets/upi.png'
 
 import { useNavigate } from 'react-router-dom'
-import { header } from 'framer-motion/client'
+
 const Checkout = () => {
   type address_prop = {
     fullname: string,

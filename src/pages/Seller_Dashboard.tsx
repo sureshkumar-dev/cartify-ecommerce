@@ -9,7 +9,7 @@ import order from '../assets/seller/parcel.png';
 import pending from '../assets/seller/pending.png';
 import drop from '../assets/drop.png'
 import { useNavigate } from 'react-router-dom';
-import { header } from 'framer-motion/client';
+
 
 const Seller_Dashboard = () => {
     const navigate = useNavigate()

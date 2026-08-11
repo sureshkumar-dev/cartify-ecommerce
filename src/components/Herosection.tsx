@@ -1,5 +1,5 @@
-import React, { type JSX } from 'react'
-import { animate, motion } from 'framer-motion'
+import  { type JSX } from 'react'
+import {  motion } from 'framer-motion'
 import { useNavigate } from 'react-router-dom'
 const Herosection = (): JSX.Element => {
     const navigate = useNavigate();

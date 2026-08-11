@@ -1,6 +1,4 @@
-import React from 'react';
-import Product_card from './Product_card';
-import watch_img from '../assets/product_images/smartwatch.webp'
+
 
 const Trending_products = () => {
     return (
