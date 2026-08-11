@@ -1,13 +1,39 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Navbar from '../components/Navbar'
 import drop from '../assets/drop.png';
 import Order_card from '../components/Order_card';
 import Footer from '../components/Footer';
-
+import axios from 'axios';
+import { header } from 'framer-motion/m';
+type OrderItem = {
+    id: number;
+    user_id: number;
+    product_id: number;
+    product_name: string;
+    product_img: string;
+    storename: string;
+    price: number;
+    quantity: number;
+    delivery_status: string;
+    OrderID:string,
+    order_date:string
+};
 const MyOrders = () => {
     const [orderSort, setorederSort] = useState<string>('All Orders')
     const [SortOpen, setSortOpen] = useState<boolean>(false)
+    const [order, setorder] = useState<OrderItem[]>([])
+    const fetchCart = async (): Promise<void> => {
+        const token = localStorage.getItem('token')
+        const res = await axios.post('http://localhost:3000/buyer/fetchOrders',
+            { token }
+        )
+        console.log(res.data);
+        setorder(res.data.orders)
 
+    }
+    useEffect(() => {
+        fetchCart();
+    })
     return (
         <>
             <Navbar />
@@ -29,66 +55,23 @@ const MyOrders = () => {
                     </div>
                 </div>
                 <div className='w-full flex flex-col gap-12 pb-20 pt-10 md:pt-20'>
-                    <Order_card
-                        img={drop}
-                        p_name="Nike Air Max Sneakers"
-                        order_id="#DEL763S"
-                        date="2025-DEC-27"
-                        quantity={1}
-                        total={4999}
-                        status="Shipped"
-                    />
+                    {order.map((item) => (
+                        <Order_card
+                            img={`http://localhost:3000/uploads/${item.product_img}`}
+                            p_name={item.product_name}
+                            order_id={item.OrderID}
+                            date={item.order_date}
+                            quantity={item.quantity}
+                            total={item.price}
+                            status={item.delivery_status}
+                            product_id={item.product_id}
+                        />
+                    ))}
 
-                    <Order_card
-                        img="https://picsum.photos/seed/watch/800/800"
-                        p_name="Premium Smart Watch"
-                        order_id="#DEL829K"
-                        date="2025-DEC-25"
-                        quantity={2}
-                        total={5998}
-                        status="Delivered"
-                    />
 
-                    <Order_card
-                        img="https://picsum.photos/seed/headphones/800/800"
-                        p_name="Wireless Headphones"
-                        order_id="#DEL451P"
-                        date="2025-DEC-23"
-                        quantity={1}
-                        total={1899}
-                        status="Pending"
-                    />
-                    <Order_card
-                        img="https://picsum.photos/seed/shoes/800/800"
-                        p_name="Nike Air Max Sneakers"
-                        order_id="#DEL763S"
-                        date="2025-DEC-27"
-                        quantity={1}
-                        total={4999}
-                        status="Shipped"
-                    />
 
-                    <Order_card
-                        img="https://picsum.photos/seed/watch/800/800"
-                        p_name="Premium Smart Watch"
-                        order_id="#DEL829K"
-                        date="2025-DEC-25"
-                        quantity={2}
-                        total={5998}
-                        status="Delivered"
-                    />
-
-                    <Order_card
-                        img="https://picsum.photos/seed/headphones/800/800"
-                        p_name="Wireless Headphones"
-                        order_id="#DEL451P"
-                        date="2025-DEC-23"
-                        quantity={1}
-                        total={1899}
-                        status="Pending"
-                    />
                 </div>
-                
+
 
 
             </div>

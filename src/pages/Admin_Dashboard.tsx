@@ -1,38 +1,95 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import LogOutIcon from '../assets/seller/logout.png'
 import { Users, Store, PackageCheck, ShoppingBag, Eye, Check, X } from "lucide-react";
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Admin_Dashboard = () => {
     const navigate = useNavigate()
+    interface Product {
+        product_id: number;
+        seller_id: number;
+        product_name: string;
+        product_desc: string;
+        product_price: number;
+        product_stock: number;
+        category: string;
+        product_img: string;
+        status: "pending" | "approved" | "rejected";
+        created_at: string;
+        updated_at: string;
+        storename: string;
+    }
+    type Users = {
+        username: string,
+        email: string,
+        id: number
+    }
+    type Sellers = {
+        id: number,
+        storename: string,
+        total_products: number
+    }
+    type Request = "pending" | "approved" | "rejected"
+    const [users, setusers] = useState<Users[]>([])
+    const [products, setproducts] = useState<Product[]>([]);
+    const [sellers, setsellers] = useState<Sellers[]>([])
+    const [status, setstatus] = useState<Request>("pending")
+    const [productid, setproductid] = useState<number>()
     const stats = [
-        { title: "Total Users", value: "12,450", icon: Users },
-        { title: "Total Sellers", value: "842", icon: Store },
-        { title: "Pending Requests", value: "28", icon: PackageCheck },
+        { title: "Total Users", value: users.length, icon: Users },
+        { title: "Total Sellers", value: sellers.length, icon: Store },
+        { title: "Pending Requests", value: products.length, icon: PackageCheck },
         { title: "Total Orders", value: "45,210", icon: ShoppingBag },
     ];
 
-    const pending = [
-        { product: "NuType Mechanical Keyboard", seller: "Nexus Peripherals", category: "Electronics", price: "$249", date: "Oct 12, 2023" },
-        { product: "Heritage Leather Duffel", seller: "Atlas Goods", category: "Travel", price: "$450", date: "Oct 11, 2023" },
-    ];
 
-    const sellers = [
-        { name: "Urban Essentials", products: 154, status: "Active" },
-        { name: "Tech Hub Systems", products: 42, status: "On Hold" },
-        { name: "Lumina Decor", products: 211, status: "Active" },
-    ];
 
-    const users = [
-        { name: "Sarah Jenkins", joined: "Oct 14, 2023", status: "Customer" },
-        { name: "Marcus Vong", joined: "Oct 14, 2023", status: "Customer" },
-        { name: "Elena Rodriguez", joined: "Oct 13, 2023", status: "VIP" },
-    ];
+
+
+
+
+    const fetchProductRequests = async (): Promise<void> => {
+        const res = await axios.get('http://localhost:3000/admin/product-requests')
+        console.log(res.data);
+        setproducts(res.data.products)
+
+
+    }
+    const fetchUsers = async (): Promise<void> => {
+        const res = await axios.get('http://localhost:3000/admin/fetch-users')
+        console.log(res.data);
+        setusers(res.data.users)
+
+
+    }
+    const fetchSellers = async (): Promise<void> => {
+        const res = await axios.get('http://localhost:3000/admin/fetch-sellers')
+        console.log(res.data);
+        setsellers(res.data.sellers)
+
+    }
+    const manageRequests = async (id: number, status: Request): Promise<void> => {
+        const res = await axios.post('http://localhost:3000/admin/manage-requests', {
+            id: id,
+            status: status
+        })
+        console.log(res.data);
+
+    }
+    useEffect(() => {
+
+        fetchUsers();
+        fetchSellers();
+    }, [])
+    useEffect(() => {
+        fetchProductRequests()
+    }, [products])
     return (
         <div className="min-h-screen bg-gray-100 p-6">
             <div className="mx-auto max-w-7xl">
 
-                {/* Header */}
+
 
                 <div className="mb-8 flex items-center justify-between">
                     <div>
@@ -51,7 +108,7 @@ const Admin_Dashboard = () => {
                     </button>
                 </div>
 
-                {/* Stats */}
+
 
                 <div className="mb-8 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
                     {stats.map((item) => (
@@ -78,75 +135,13 @@ const Admin_Dashboard = () => {
                     ))}
                 </div>
 
-                {/* Pending Products */}
 
-                <div className="rounded-2xl bg-white p-6 shadow">
 
-                    <h2 className="mb-5 text-2xl font-semibold">
-                        Pending Product Requests
-                    </h2>
 
-                    <div className="h-[430px] space-y-4 overflow-y-auto pr-2">
-
-                        {pending.map((item) => (
-
-                            <div
-                                key={item.product}
-                                className="flex items-center justify-between rounded-xl border p-4"
-                            >
-
-                                <div className="flex items-center gap-4">
-
-                                    <img
-                                        src="https://placehold.co/90x90"
-                                        className="h-20 w-20 rounded-lg object-cover"
-                                        alt=""
-                                    />
-
-                                    <div>
-
-                                        <h3 className="font-semibold text-lg">
-                                            {item.product}
-                                        </h3>
-
-                                        <p className="text-sm text-gray-500">
-                                            Seller : {item.seller}
-                                        </p>
-
-                                        <p className="text-sm text-gray-500">
-                                            Category : {item.category}
-                                        </p>
-
-                                        <p className="font-semibold text-green-600">
-                                            {item.price}
-                                        </p>
-
-                                    </div>
-
-                                </div>
-
-                                <select className="rounded-lg border px-4 py-2 outline-none">
-
-                                    <option>Pending</option>
-
-                                    <option>Approved</option>
-
-                                    <option>Rejected</option>
-
-                                </select>
-
-                            </div>
-
-                        ))}
-
-                    </div>
-
-                </div>
-                {/* Sellers & Users */}
 
                 <div className="mt-8 grid gap-6 lg:grid-cols-2">
 
-                    {/* Sellers */}
+
 
                     <div className="rounded-2xl bg-white p-6 shadow">
 
@@ -159,29 +154,29 @@ const Admin_Dashboard = () => {
                             {sellers.map((seller) => (
 
                                 <div
-                                    key={seller.name}
+                                    key={seller.id}
                                     className="flex items-center justify-between rounded-xl border p-4"
                                 >
 
                                     <div>
 
                                         <h3 className="font-semibold text-lg">
-                                            {seller.name}
+                                            {seller.storename}
                                         </h3>
 
                                         <p className="text-sm text-gray-500">
-                                            Products : {seller.products}
+                                            Products : {seller.total_products}
                                         </p>
 
                                     </div>
 
                                     <span
-                                        className={`rounded-full px-3 py-1 text-sm font-medium ${seller.status === "Active"
-                                                ? "bg-green-100 text-green-700"
-                                                : "bg-yellow-100 text-yellow-700"
+                                        className={`rounded-full px-3 py-1 text-sm font-medium 
+                                            ? "bg-green-100 text-green-700"
+                                            : "bg-yellow-100 text-yellow-700"
                                             }`}
                                     >
-                                        {seller.status}
+                                        ACTIVE
                                     </span>
 
                                 </div>
@@ -192,7 +187,7 @@ const Admin_Dashboard = () => {
 
                     </div>
 
-                    {/* Users */}
+
 
                     <div className="rounded-2xl bg-white p-6 shadow">
 
@@ -205,24 +200,24 @@ const Admin_Dashboard = () => {
                             {users.map((user) => (
 
                                 <div
-                                    key={user.name}
+                                    key={user.id}
                                     className="flex items-center justify-between rounded-xl border p-4"
                                 >
 
                                     <div>
 
                                         <h3 className="font-semibold text-lg">
-                                            {user.name}
+                                            {user.username}
                                         </h3>
 
                                         <p className="text-sm text-gray-500">
-                                            Joined : {user.joined}
+                                            Email : {user.email}
                                         </p>
 
                                     </div>
 
                                     <span className="rounded-full bg-blue-100 px-3 py-1 text-sm text-blue-700">
-                                        {user.status}
+                                        ACTIVE
                                     </span>
 
                                 </div>
@@ -235,7 +230,69 @@ const Admin_Dashboard = () => {
 
                 </div>
 
-                {/* Orders */}
+                <div className="rounded-2xl bg-white mt-10 p-6 shadow">
+
+                    <h2 className="mb-5 text-2xl font-semibold">
+                        Pending Product Requests
+                    </h2>
+
+                    <div className="h-[430px] space-y-4 overflow-y-auto pr-2">
+
+                        {products?.map((item) => (
+
+                            <div
+                                key={item.product_id}
+                                className="flex items-center justify-between rounded-xl border p-4"
+                            >
+
+                                <div className="flex items-center gap-4">
+
+                                    <img
+                                        src={`http://localhost:3000/uploads/${item.product_img}`}
+                                        className="h-20 w-20 rounded-lg object-cover"
+                                        alt=""
+                                    />
+
+                                    <div>
+
+                                        <h3 className="font-semibold text-lg">
+                                            {item.product_name}
+                                        </h3>
+
+                                        <p className="text-sm text-gray-500">
+                                            Seller : {item.storename}
+                                        </p>
+
+                                        <p className="text-sm text-gray-500">
+                                            Category : {item.category}
+                                        </p>
+
+                                        <p className="font-semibold text-green-600">
+                                            ₹ {item.product_price}
+                                        </p>
+
+                                    </div>
+
+                                </div>
+
+                                <select onChange={(e) => { manageRequests(item.product_id, e.target.value as Request) }} className="rounded-lg border px-4 py-2 outline-none">
+
+                                    <option value='pending'>Pending</option>
+
+                                    <option value='approved' >Approved</option>
+
+                                    <option value='rejected' >Rejected</option>
+
+                                </select>
+
+                            </div>
+
+                        ))}
+
+                    </div>
+
+                </div>
+
 
                 <div className="mt-8 rounded-2xl bg-white p-6 shadow">
 

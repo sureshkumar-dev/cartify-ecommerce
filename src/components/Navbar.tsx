@@ -1,4 +1,4 @@
-import React, { useState, type JSX } from 'react'
+import React, { useEffect, useState, type JSX } from 'react'
 import { motion } from 'framer-motion'
 import smacc from '../assets/sidebar/account.png';
 import smhome from '../assets/sidebar/home.png';
@@ -14,9 +14,57 @@ import acclogo from '../assets/account.png';
 import notificationlogo from '../assets/notificationLogo.png';
 import menubar from '../assets/menuLogo.png'
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 const Navbar = (): JSX.Element => {
+    type cartProps = {
+
+        product_id
+        :
+        number,
+        product_img
+        :
+        string,
+        product_name
+        :
+        string,
+        product_price
+        :
+        number,
+        storename
+        :
+        string,
+        user_id
+        :
+        number,
+        quantity:
+        number
+    }
+    const [cart, setcart] = useState<cartProps[]>([]);
     const [isopen, setisopen] = useState<boolean>(false)
     const navigate = useNavigate()
+    const fetchCart = async () => {
+        try {
+
+            const token = localStorage.getItem('token')
+            const res = await axios.get('http://localhost:3000/buyer/fetch-cart', {
+                headers: {
+                    authorization: `Bearer ${token}`
+                }
+            })
+            setcart(res.data.products);
+
+
+
+
+
+        } catch (err) {
+
+        }
+    }
+    useEffect(()=>{
+        fetchCart();
+         
+    },[cart])
     return (
         <>
             <div className='max-w-[1600px] w-full mx-auto flex items-center  '>
@@ -24,23 +72,23 @@ const Navbar = (): JSX.Element => {
                     <div className='flex items-center w-[1450px] mx-auto   justify-between'>
                         <h1 className='pl-[30px]  font-[600] text-[30px]'>Cartify</h1>
                         <ul className=' gap-[30px] text-gray-500 hidden lg:flex font-[500]'>
-                            <NavLink className={({ isActive }) => isActive ? "text-black font-[600] border-b-2" : "hover:text-black hover:font-[600] hover:border-b-2"} to={'/'}>Home</NavLink>
+                            <NavLink className={({ isActive }) => isActive ? "text-black font-[600] border-b-2" : "hover:text-black hover:font-[600] hover:border-b-2"} to={'/home'}>Home</NavLink>
                             <NavLink className={({ isActive }) => isActive ? "text-black font-[600] border-b-2" : "hover:text-black hover:font-[600] hover:border-b-2"} to={'/products'}>Products</NavLink>
                             <NavLink className={({ isActive }) => isActive ? "text-black font-[600] border-b-2" : "hover:text-black hover:font-[600] hover:border-b-2"} to={'/my-orders'}>My Orders</NavLink>
                         </ul>
                         <div className=' hidden lg:flex h-[30px] pr-[30px] gap-5'>
                             <div className='h-[30px] w-[30px] relative'>
-                                <img onClick={()=> {navigate('/my-cart')}} className='h-[30px] hover:cursor-pointer' src={cartlogo} alt="cartlogo" />
-                                <div className='h-[15px] w-[15px] flex justify-center items-center font-[300] absolute text-white text-[10px] bg-[#155eef] rounded-[50%] bottom-[75%] left-[60%]'>
-                                    <h1 >0</h1>
+                                <img onClick={() => { navigate('/my-cart') }} className='h-[30px] hover:cursor-pointer' src={cartlogo} alt="cartlogo" />
+                                <div className='h-[15px] w-[15px] flex justify-center items-center font-[500] absolute text-white text-[10px] bg-[#155eef] rounded-[50%] bottom-[75%] left-[60%]'>
+                                    <h1 >{cart.length}</h1>
 
                                 </div>
                             </div>
-                            <div onClick={()=>{ navigate('/account') }} className='h-[30px] w-[30px] relative'>
+                            <div onClick={() => { navigate('/account') }} className='h-[30px] w-[30px] relative'>
                                 <img className='h-[30px] hover:cursor-pointer' src={acclogo} alt="account" />
-                            </div> 
+                            </div>
                             <div className='h-[30px] w-[30px] relative'>
-                                <img onClick={() => {navigate('/notifications')}} className='h-[30px] hover:cursor-pointer' src={notificationlogo} alt="notification" />
+                                <img onClick={() => { navigate('/notifications') }} className='h-[30px] hover:cursor-pointer' src={notificationlogo} alt="notification" />
                                 <div className='h-[15px] w-[15px] flex justify-center items-center font-[300] absolute text-white text-[10px] bg-[#155eef] rounded-[50%] bottom-[65%] left-[60%]'>
                                     <h1 >0</h1>
                                 </div>

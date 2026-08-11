@@ -92,6 +92,7 @@ const Seller_Dashboard = () => {
         )
 
         console.log(res.data);
+        fetchproducts();
 
     }
     const fetchproducts = async (): Promise<void> => {
@@ -107,7 +108,7 @@ const Seller_Dashboard = () => {
     }
     useEffect(() => {
         fetchproducts();
-    }, [])
+    }, [myproducts])
     const deleteItem = async (id: string) => {
         
         const res = await axios.delete(`http://localhost:3000/seller/product-delete/${id}`)
@@ -188,7 +189,7 @@ const Seller_Dashboard = () => {
                                 <input value={p_desc} onChange={(e: React.ChangeEvent<HTMLInputElement>) => { setp_desc(e.target.value) }} className='w-full border-black-1 outline-1 pl-3 rounded-sm py-1 pb-10 mb-3 ' placeholder='Enter Product Description..' type="text" />
                                 <div className='w-full flex mb-3 gap-3'>
                                     <div className='w-1/2 '>
-                                        <p className='pb-3'>Price</p>
+                                        <p className='pb-3'>Price (₹)</p>
                                         <input value={p_price} onChange={(e: React.ChangeEvent<HTMLInputElement>) => { setp_price(e.target.value) }} className='w-full border-black-1 outline-1 pl-3 rounded-sm py-1 ' placeholder='Product Price' type="text" />
 
                                     </div>

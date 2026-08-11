@@ -13,6 +13,7 @@ import Admin_Dashboard from './pages/Admin_Dashboard';
 import UserRoute from './routes/UserRoute';
 import SellerRoute from './routes/SellerRoute';
 import RootRedirect from './components/RootRedirect';
+import Checkout from './pages/Checkout';
 const App = () => {
   
   
@@ -27,9 +28,10 @@ const App = () => {
           <Route path='/account' Component={Account} />
           <Route path='/products' Component={Products} />
           <Route path='/my-orders' Component={MyOrders} />
-          <Route path='/order-details' Component={OrderDetails} />
+          <Route path='/order-details/:id' Component={OrderDetails} />
           <Route path='/my-cart' Component={MyCart} />
           <Route path='/notifications' Component={Notification} />
+          <Route path='/checkout' Component={Checkout} />
         </Route>
         <Route path='/' Component={RootRedirect} />
         <Route path='/auth' Component={Auth} />
