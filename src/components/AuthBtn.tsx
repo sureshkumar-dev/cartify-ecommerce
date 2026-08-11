@@ -1,4 +1,4 @@
-import React from 'react'
+
 import { motion } from 'framer-motion'
 type prop = { btntext:string }
 const AuthBtn = ({btntext}:prop) => {

@@ -1,6 +1,6 @@
 import  { useEffect, useState } from 'react'
 import LogOutIcon from '../assets/seller/logout.png'
-import { Users, Store, PackageCheck, ShoppingBag, Eye, Check, X } from "lucide-react";
+import { Users, Store, PackageCheck, ShoppingBag } from "lucide-react";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
@@ -34,8 +34,7 @@ const Admin_Dashboard = () => {
     const [users, setusers] = useState<Users[]>([])
     const [products, setproducts] = useState<Product[]>([]);
     const [sellers, setsellers] = useState<Sellers[]>([])
-    const [status, setstatus] = useState<Request>("pending")
-    const [productid, setproductid] = useState<number>()
+  
     const stats = [
         { title: "Total Users", value: users.length, icon: Users },
         { title: "Total Sellers", value: sellers.length, icon: Store },

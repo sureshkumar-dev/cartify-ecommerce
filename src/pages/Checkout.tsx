@@ -49,7 +49,7 @@ const Checkout = () => {
   }
   const navigate = useNavigate()
   const [cart, setcart] = useState<cartProps[]>([]);
-  const [total, settotal] = useState<number | undefined>();
+ 
   const [paymentoption, setpaymentoption] = useState<string>("")
   const [address, setaddress] = useState<address_prop>({
     fullname: "",

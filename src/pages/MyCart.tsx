@@ -32,7 +32,7 @@ const MyCart = () => {
         number
     }
     const [cart, setcart] = useState<cartProps[]>([]);
-    const [total, settotal] = useState<number | undefined>();
+
     const fetchCart = async () => {
         try {
 

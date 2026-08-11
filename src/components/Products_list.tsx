@@ -79,10 +79,10 @@ const Products_list = () => {
                         <div className='pb-6'>
                             <h1 className='text-[19px]  font-[500] pb-1'>Category</h1>
                             <ul className='flex flex-col gap-y-2'>
-                                <li ><input onChange={(e: React.ChangeEvent<HTMLInputElement>) => { setcategory('Fashions') }} type="radio" name='category' /> Fashions</li>
-                                <li><input onChange={(e: React.ChangeEvent<HTMLInputElement>) => { setcategory('Electronics') }} type="radio" name='category' /> Electronics</li>
-                                <li><input onChange={(e: React.ChangeEvent<HTMLInputElement>) => { setcategory('Home & Living') }} type="radio" name='category' /> Home & Living</li>
-                                <li><input onChange={(e: React.ChangeEvent<HTMLInputElement>) => { setcategory('Personal Care') }} type="radio" name='category' /> Personal Care</li>
+                                <li ><input onChange={() => { setcategory('Fashions') }} type="radio" name='category' /> Fashions</li>
+                                <li><input onChange={() => { setcategory('Electronics') }} type="radio" name='category' /> Electronics</li>
+                                <li><input onChange={() => { setcategory('Home & Living') }} type="radio" name='category' /> Home & Living</li>
+                                <li><input onChange={() => { setcategory('Personal Care') }} type="radio" name='category' /> Personal Care</li>
 
                             </ul>
                         </div>

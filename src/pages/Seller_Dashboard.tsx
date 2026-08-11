@@ -112,7 +112,8 @@ const Seller_Dashboard = () => {
     const deleteItem = async (id: string) => {
         
         const res = await axios.delete(`http://localhost:3000/seller/product-delete/${id}`)
-
+        console.log(res);
+        
         fetchproducts();
     }
     return (

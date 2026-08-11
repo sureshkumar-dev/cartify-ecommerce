@@ -1,5 +1,4 @@
-import React, { useState } from 'react'
-import drop from '../assets/drop.png'
+
 type Card_prop = {
     img: string,
     p_name: string,
