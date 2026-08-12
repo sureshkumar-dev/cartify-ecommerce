@@ -120,28 +120,20 @@ const Seller_Dashboard = () => {
         setmyproducts(res.data.products)
     }
     const [order, setorder] = useState<OrderItem[]>([])
-    const [oredersts,setordersts] = useState<"pending" | "shipped" | "delivered">("pending")
-    const fetchCart = async (): Promise<void> => {
-        const token = localStorage.getItem('token')
-        const res = await axios.post('https://cartify-backend-kzss.onrender.com/buyer/fetchOrders',
-            { token }
-        )
-        console.log(res.data);
-        setorder(res.data.orders)
-
-    }
-    const changeStatus = async(p_id:number,o_id:string):Promise<void>=>{
-        const res = await axios.post('https://cartify-backend-kzss.onrender.com/seller/change-status',{
-            oredersts,
+    const [ordersts, setordersts] = useState<
+        "pending" | "shipped" | "delivered"
+    >("pending");
+    
+    const changeStatus = async (p_id: number, o_id: string): Promise<void> => {
+        const res = await axios.post('https://cartify-backend-kzss.onrender.com/seller/change-status', {
+            ordersts,
             p_id,
             o_id
         })
         console.log(res.data);
-        
+
     }
-    useEffect(()=>{
-        fetchCart();
-    },[])
+  
     useEffect(() => {
         fetchproducts();
     }, [])
@@ -210,7 +202,7 @@ const Seller_Dashboard = () => {
                     <div className='grid md:grid-cols-3 gap-5 pt-5'>
                         <button onClick={() => { (setaddproduct(true), setmanageProduct(false), setmanageOrder(false)) }} style={{ backgroundColor: addProduct ? "black" : "white", color: addProduct ? "white" : "black" }} className='border-2 text-black font-[500] rounded-md py-2'>Add Products</button>
                         <button onClick={() => { (setaddproduct(false), setmanageProduct(true), setmanageOrder(false)) }} style={{ backgroundColor: manageProduct ? "black" : "white", color: manageProduct ? "white" : "black" }} className='border-2 text-black font-[500] rounded-md py-2'>Manage Products</button>
-                        <button onClick={() => { (setaddproduct(false), setmanageProduct(false), setmanageOrder(true),fetchCart()) }} style={{ backgroundColor: manageOrder ? "black" : "white", color: manageOrder ? "white" : "black" }} className='border-2 text-black font-[500] rounded-md py-2'>Manage Orders</button>
+                        <button onClick={() => { (setaddproduct(false), setmanageProduct(false), setmanageOrder(true)) }} style={{ backgroundColor: manageOrder ? "black" : "white", color: manageOrder ? "white" : "black" }} className='border-2 text-black font-[500] rounded-md py-2'>Manage Orders</button>
                     </div>
                     <div className='w-full pt-15 pb-8 flex justify-center '>
                         <div style={{ display: addProduct ? "block" : "none" }} className='  bg-white shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)] rounded-xl w-[480px] h-max p-4'>
@@ -306,9 +298,9 @@ const Seller_Dashboard = () => {
                                     </div>
 
                                     <select className="rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:border-black">
-                                        <option onClick={()=> { setordersts("pending"),changeStatus(order.product_id,order.OrderID);}}>Pending</option>
-                                        <option onClick={()=> { setordersts("shipped"),changeStatus(order.product_id,order.OrderID);}}>Shipped</option>
-                                        <option onClick={()=> { setordersts("delivered"),changeStatus(order.product_id,order.OrderID);}}>Delivered</option>
+                                        <option onClick={() => { setordersts("pending"), changeStatus(order.product_id, order.OrderID); }}>Pending</option>
+                                        <option onClick={() => { setordersts("shipped"), changeStatus(order.product_id, order.OrderID); }}>Shipped</option>
+                                        <option onClick={() => { setordersts("delivered"), changeStatus(order.product_id, order.OrderID); }}>Delivered</option>
                                     </select>
                                 </div>
                             ))}
