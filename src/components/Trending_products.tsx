@@ -16,8 +16,9 @@ interface Product {
     status: "approved" | "pending" | "rejected";
     storename: string;
 }
-const [products,setproducts] = useState<Product[]>([])
+
 const Trending_products = () => {
+    const [products,setproducts] = useState<Product[]>([])
     const fetchTrending = async():Promise<void> => {
         const res = await axios.post('https://cartify-backend-kzss.onrender.com/buyer/trending')
         console.log(res.data);
