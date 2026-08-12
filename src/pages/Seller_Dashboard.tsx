@@ -131,6 +131,7 @@ const Seller_Dashboard = () => {
             o_id
         })
         console.log(res.data);
+        setorder(res.data.product)
 
     }
   
