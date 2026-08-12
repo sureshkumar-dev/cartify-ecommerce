@@ -37,7 +37,7 @@ const Seller_Dashboard = () => {
     const fetchProfile = async (): Promise<void> => {
         try {
             const token = localStorage.getItem('sellertoken')
-            const res = await axios.get('http://localhost:3000/fetch-seller', {
+            const res = await axios.get('https://cartify-backend-kzss.onrender.com/fetch-seller', {
                 headers: {
                     authorization: `Bearer ${token}`,
                 }
@@ -82,7 +82,7 @@ const Seller_Dashboard = () => {
         if (!token) {
             return alert('no token found')
         }
-        const res = await axios.post('http://localhost:3000/seller/add-product',
+        const res = await axios.post('https://cartify-backend-kzss.onrender.com/seller/add-product',
             fd,
             {
                 headers: {
@@ -97,7 +97,7 @@ const Seller_Dashboard = () => {
     }
     const fetchproducts = async (): Promise<void> => {
         const token = localStorage.getItem('sellertoken')
-        const res = await axios.post('http://localhost:3000/seller/fetch-products', {}, {
+        const res = await axios.post('https://cartify-backend-kzss.onrender.com/seller/fetch-products', {}, {
             headers: {
 
                 authorization: `Bearer ${token!}`
@@ -111,7 +111,7 @@ const Seller_Dashboard = () => {
     }, [myproducts])
     const deleteItem = async (id: string) => {
         
-        const res = await axios.delete(`http://localhost:3000/seller/product-delete/${id}`)
+        const res = await axios.delete(`https://cartify-backend-kzss.onrender.com/seller/product-delete/${id}`)
         console.log(res);
         fetchproducts();
     }
@@ -237,7 +237,7 @@ const Seller_Dashboard = () => {
                                 >
                                     <div className="flex items-center gap-3">
                                         <img
-                                            src={`http://localhost:3000/uploads/${item.product_img}`}
+                                            src={`https://cartify-backend-kzss.onrender.com/uploads/${item.product_img}`}
                                             alt="Product"
                                             className="h-14 w-14 rounded-md object-cover"
                                         />

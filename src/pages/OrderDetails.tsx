@@ -24,7 +24,7 @@ const OrderDetails = () => {
 
     const fetchOrderDetails = async (): Promise<void> => {
         try {
-            const res = await axios.post(`http://localhost:3000/buyer/orderdetails/${id}`)
+            const res = await axios.post(`https://cartify-backend-kzss.onrender.com/buyer/orderdetails/${id}`)
             console.log(res.data);
             setorderdetails(res.data.products)
 
@@ -52,7 +52,7 @@ const OrderDetails = () => {
 
                     <div className="flex gap-4">
                         <img
-                            src={`http://localhost:3000/uploads/${item.product_img}`}
+                            src={`https://cartify-backend-kzss.onrender.com/uploads/${item.product_img}`}
                             alt="Product"
                             className="h-24 w-24 rounded-xl object-cover"
                         />

@@ -49,27 +49,27 @@ const Admin_Dashboard = () => {
 
 
     const fetchProductRequests = async (): Promise<void> => {
-        const res = await axios.get('http://localhost:3000/admin/product-requests')
+        const res = await axios.get('https://cartify-backend-kzss.onrender.com/admin/product-requests')
         console.log(res.data);
         setproducts(res.data.products)
 
 
     }
     const fetchUsers = async (): Promise<void> => {
-        const res = await axios.get('http://localhost:3000/admin/fetch-users')
+        const res = await axios.get('https://cartify-backend-kzss.onrender.com/admin/fetch-users')
         console.log(res.data);
         setusers(res.data.users)
 
 
     }
     const fetchSellers = async (): Promise<void> => {
-        const res = await axios.get('http://localhost:3000/admin/fetch-sellers')
+        const res = await axios.get('https://cartify-backend-kzss.onrender.com/admin/fetch-sellers')
         console.log(res.data);
         setsellers(res.data.sellers)
 
     }
     const manageRequests = async (id: number, status: Request): Promise<void> => {
-        const res = await axios.post('http://localhost:3000/admin/manage-requests', {
+        const res = await axios.post('https://cartify-backend-kzss.onrender.com/admin/manage-requests', {
             id: id,
             status: status
         })
@@ -247,7 +247,7 @@ const Admin_Dashboard = () => {
                                 <div className="flex items-center gap-4">
 
                                     <img
-                                        src={`http://localhost:3000/uploads/${item.product_img}`}
+                                        src={`https://cartify-backend-kzss.onrender.com/uploads/${item.product_img}`}
                                         className="h-20 w-20 rounded-lg object-cover"
                                         alt=""
                                     />

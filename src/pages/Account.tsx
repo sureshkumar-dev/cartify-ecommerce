@@ -42,7 +42,7 @@ const Account = () => {
     }
     const fetchbuyer = async (): Promise<void> => {
         const token = localStorage.getItem('token')
-        const res = await axios.get('http://localhost:3000/fetch-user', {
+        const res = await axios.get('https://cartify-backend-kzss.onrender.com/fetch-user', {
             headers: {
                 authorization: `Bearer ${token}`
             }

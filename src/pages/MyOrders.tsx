@@ -24,7 +24,7 @@ const MyOrders = () => {
     const [order, setorder] = useState<OrderItem[]>([])
     const fetchCart = async (): Promise<void> => {
         const token = localStorage.getItem('token')
-        const res = await axios.post('http://localhost:3000/buyer/fetchOrders',
+        const res = await axios.post('https://cartify-backend-kzss.onrender.com/buyer/fetchOrders',
             { token }
         )
         console.log(res.data);
@@ -57,7 +57,7 @@ const MyOrders = () => {
                 <div className='w-full flex flex-col gap-12 pb-20 pt-10 md:pt-20'>
                     {order.map((item) => (
                         <Order_card
-                            img={`http://localhost:3000/uploads/${item.product_img}`}
+                            img={`https://cartify-backend-kzss.onrender.com/uploads/${item.product_img}`}
                             p_name={item.product_name}
                             order_id={item.OrderID}
                             date={item.order_date}

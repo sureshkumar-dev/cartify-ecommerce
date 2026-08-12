@@ -46,7 +46,7 @@ const Navbar = (): JSX.Element => {
         try {
 
             const token = localStorage.getItem('token')
-            const res = await axios.get('http://localhost:3000/buyer/fetch-cart', {
+            const res = await axios.get('https://cartify-backend-kzss.onrender.com/buyer/fetch-cart', {
                 headers: {
                     authorization: `Bearer ${token}`
                 }

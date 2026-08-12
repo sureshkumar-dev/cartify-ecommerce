@@ -106,7 +106,7 @@ const Auth = () => {
                 alert("Passwords do not match.");
             }
             e.preventDefault()
-            const res = await axios.post('http://localhost:3000/buyer/signup', userdata)
+            const res = await axios.post('https://cartify-backend-kzss.onrender.com/buyer/signup', userdata)
             console.log(res.data);
             if (res.data.success) {
                 alert("Account created successfully. Please sign in.");
@@ -152,7 +152,7 @@ const Auth = () => {
                 alert("Passwords do not match.");
             }
             e.preventDefault()
-            const res = await axios.post('http://localhost:3000/seller/signup', storedata)
+            const res = await axios.post('https://cartify-backend-kzss.onrender.com/seller/signup', storedata)
             console.log(res.data);
             if (res.data.success) {
                 alert("Account created successfully. Please sign in.");
@@ -197,7 +197,7 @@ const Auth = () => {
                 return alert("Password must be at least 8 characters long.");
             }
             e.preventDefault();
-            const res = await axios.post('http://localhost:3000/buyer/login', userloginData)
+            const res = await axios.post('https://cartify-backend-kzss.onrender.com/buyer/login', userloginData)
             if (res.data.success) {
                 navigate('/home')
             }
@@ -222,7 +222,7 @@ const Auth = () => {
 
             }
             e.preventDefault()
-            const res = await axios.post('http://localhost:3000/buyer/forget-password', {
+            const res = await axios.post('https://cartify-backend-kzss.onrender.com/buyer/forget-password', {
                 email: buyerRestpwd
             })
             const otp = res.data.otp;
@@ -246,7 +246,7 @@ const Auth = () => {
 
             }
             e.preventDefault()
-            const res = await axios.post('http://localhost:3000/seller/forget-password', {
+            const res = await axios.post('https://cartify-backend-kzss.onrender.com/seller/forget-password', {
                 email: sellerRestpwd
             })
             const otp = res.data.otp;
@@ -268,7 +268,7 @@ const Auth = () => {
                 return;
             }
             e.preventDefault()
-            const res = await axios.post('http://localhost:3000/buyer/forget-password/verify-otp', {
+            const res = await axios.post('https://cartify-backend-kzss.onrender.com/buyer/forget-password/verify-otp', {
                 email: buyerRestpwd,
                 OTP: buyerotp
             })
@@ -293,7 +293,7 @@ const Auth = () => {
                 return;
             }
             e.preventDefault()
-            const res = await axios.post('http://localhost:3000/seller/forget-password/verify-otp', {
+            const res = await axios.post('https://cartify-backend-kzss.onrender.com/seller/forget-password/verify-otp', {
                 email: sellerRestpwd,
                 OTP: sellerotp
             })
@@ -321,7 +321,7 @@ const Auth = () => {
 
             }
             e.preventDefault();
-            const res = await axios.post('http://localhost:3000/seller/login', sellerloginData)
+            const res = await axios.post('https://cartify-backend-kzss.onrender.com/seller/login', sellerloginData)
             if (res.data.success) {
                 navigate('/seller')
             }
@@ -351,7 +351,7 @@ const Auth = () => {
             }
 
             await axios.post(
-                "http://localhost:3000/buyer/update-password",
+                "https://cartify-backend-kzss.onrender.com/buyer/update-password",
                 {
                     email: buyerRestpwd,
                     password: userNewPwd.password
@@ -397,7 +397,7 @@ const Auth = () => {
             }
 
             await axios.post(
-                "http://localhost:3000/seller/update-password",
+                "https://cartify-backend-kzss.onrender.com/seller/update-password",
                 {
                     email: sellerRestpwd,
                     password: sellerNewPwd.password
@@ -427,7 +427,7 @@ const Auth = () => {
             return alert('please fill the all fields')
         }
         e.preventDefault();
-        const res = await axios.post('http://localhost:3000/admin/login', {
+        const res = await axios.post('https://cartify-backend-kzss.onrender.com/admin/login', {
             adminid: adminid,
             adminpwd: adminpwd
         })

@@ -37,7 +37,7 @@ const MyCart = () => {
         try {
 
             const token = localStorage.getItem('token')
-            const res = await axios.get('http://localhost:3000/buyer/fetch-cart', {
+            const res = await axios.get('https://cartify-backend-kzss.onrender.com/buyer/fetch-cart', {
                 headers: {
                     authorization: `Bearer ${token}`
                 }
@@ -56,7 +56,7 @@ const MyCart = () => {
 
     const deleteCart = async (productID: number): Promise<void> => {
         try {
-            const res = await axios.delete(`http://localhost:3000/buyer/delete-cart/${productID}`)
+            const res = await axios.delete(`https://cartify-backend-kzss.onrender.com/buyer/delete-cart/${productID}`)
             console.log(res.data);
             await fetchCart()
 
@@ -66,7 +66,7 @@ const MyCart = () => {
         }
     }
     const updateQuantity = async(productID:number,type:"inc" | "dec"):Promise<void> => {
-        const res = await axios.patch(`http://localhost:3000/buyer/update-quantity/${productID}`,{
+        const res = await axios.patch(`https://cartify-backend-kzss.onrender.com/buyer/update-quantity/${productID}`,{
             type,
             userid:cart[0].user_id
         })
@@ -98,7 +98,7 @@ const MyCart = () => {
                     <div className='md:w-[60%] bg-white md:overflow-y-auto scrollbar-none  flex-col p-2'>
                         {cart.map((item) => (
                             <div key={item.product_id}>
-                                <Cart_Card quantity={item.quantity} onclickdec={() => updateQuantity(item.product_id,'dec')} onclickinc={() => updateQuantity(item.product_id,'inc')} img={`http://localhost:3000/uploads/${item.product_img}`} p_name={item.product_name} price={item.product_price} onclick={() => { deleteCart(item.product_id) }} />
+                                <Cart_Card quantity={item.quantity} onclickdec={() => updateQuantity(item.product_id,'dec')} onclickinc={() => updateQuantity(item.product_id,'inc')} img={`https://cartify-backend-kzss.onrender.com/uploads/${item.product_img}`} p_name={item.product_name} price={item.product_price} onclick={() => { deleteCart(item.product_id) }} />
                             </div>
                         ))}
 

@@ -31,7 +31,7 @@ const Products_list = () => {
     const fetchProducts = async (): Promise<void> => {
         console.log(category, filterdate, range);
 
-        const res = await axios.get("http://localhost:3000/buyer/fetch-product",
+        const res = await axios.get("https://cartify-backend-kzss.onrender.com/buyer/fetch-product",
             {
                 params: {
                     search: serchproduct,
@@ -58,7 +58,7 @@ const Products_list = () => {
         console.log("Received productID:", productID);
         console.log('add to cart working');
         const token = localStorage.getItem('token')
-        const res = await axios.post('http://localhost:3000/buyer/add-to-cart',{
+        const res = await axios.post('https://cartify-backend-kzss.onrender.com/buyer/add-to-cart',{
             productID
         },{
             headers:{
@@ -127,7 +127,7 @@ const Products_list = () => {
                         <div className='grid grid-cols-2 md:grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-2 md:gap-8 gap-y-4 overflow-y-auto flex-1 min-h-0 mt-5 pl-2 pb-8 pt-14 [&::-webkit-scrollbar]:hidden [scrollbar-width:none]'>
                             {products.map((item) => (
                                 <div key={item.product_id}>
-                                    <Product_card onclick={addtoCart} p_id={item.product_id} p_name={item.product_name} price={Number(item.product_price)} seller={item.storename} img={`http://localhost:3000/uploads/${item.product_img}`} />
+                                    <Product_card onclick={addtoCart} p_id={item.product_id} p_name={item.product_name} price={Number(item.product_price)} seller={item.storename} img={`https://cartify-backend-kzss.onrender.com/uploads/${item.product_img}`} />
                                 </div>
                             ))}
                         </div>

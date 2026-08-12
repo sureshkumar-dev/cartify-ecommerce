@@ -10,7 +10,7 @@ const Home = (): JSX.Element => {
   const fetchProfile = async (): Promise<void> => {
     try {
       const token = localStorage.getItem('token')
-      const res = await axios.get('http://localhost:3000/fetch-user', {
+      const res = await axios.get('https://cartify-backend-kzss.onrender.com/fetch-user', {
         headers:{
           authorization: `Bearer ${token}`,
         }

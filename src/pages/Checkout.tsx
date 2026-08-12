@@ -63,7 +63,7 @@ const Checkout = () => {
     try {
       console.log("KEY:", import.meta.env.VITE_RAZORPAY_KEY_ID);
       const token = localStorage.getItem('token')
-      const res = await axios.get('http://localhost:3000/buyer/fetch-cart', {
+      const res = await axios.get('https://cartify-backend-kzss.onrender.com/buyer/fetch-cart', {
         headers: {
           authorization: `Bearer ${token}`
         }
@@ -93,7 +93,7 @@ const Checkout = () => {
   const totalvalue = subtotal - discount + tax + shipping;
   const onlineCheckout = async (): Promise<void> => {
     try {
-      const res = await axios.post('http://localhost:3000/buyer/checkout-razorpay', {
+      const res = await axios.post('https://cartify-backend-kzss.onrender.com/buyer/checkout-razorpay', {
         amount: totalvalue
       })
       console.log(res.data);
@@ -106,7 +106,7 @@ const Checkout = () => {
           console.log('payment success', response);
           const token = localStorage.getItem('token')
           
-          const verify = await axios.post('http://localhost:3000/buyer/verify-payment', {
+          const verify = await axios.post('https://cartify-backend-kzss.onrender.com/buyer/verify-payment', {
             cart:cart,
             totalamount:totalvalue,
             token:token,
