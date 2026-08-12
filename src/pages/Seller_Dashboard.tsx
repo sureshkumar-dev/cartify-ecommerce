@@ -5,7 +5,7 @@ import profile from '../assets/seller/profile.png'
 import logout from '../assets/seller/logout.png'
 import money from '../assets/seller/money.png';
 import bag from '../assets/seller/bag.png';
-import order from '../assets/seller/parcel.png';
+import orders from '../assets/seller/parcel.png';
 import pending from '../assets/seller/pending.png';
 import drop from '../assets/drop.png'
 import { useNavigate } from 'react-router-dom';
@@ -29,6 +29,19 @@ const Seller_Dashboard = () => {
         category: string;
         status: 'pending' | 'rejected' | 'approved';
     }
+    type OrderItem = {
+        id: number;
+        user_id: number;
+        product_id: number;
+        product_name: string;
+        product_img: string;
+        storename: string;
+        price: number;
+        quantity: number;
+        delivery_status: string;
+        OrderID: string,
+        order_date: string
+    };
     const [myproducts, setmyproducts] = useState<Product[]>()
     const logoutfn = () => {
         localStorage.removeItem('sellertoken')
@@ -106,11 +119,34 @@ const Seller_Dashboard = () => {
         })
         setmyproducts(res.data.products)
     }
+    const [order, setorder] = useState<OrderItem[]>([])
+    const [oredersts,setordersts] = useState<"pending" | "shipped" | "delivered">("pending")
+    const fetchCart = async (): Promise<void> => {
+        const token = localStorage.getItem('token')
+        const res = await axios.post('https://cartify-backend-kzss.onrender.com/buyer/fetchOrders',
+            { token }
+        )
+        console.log(res.data);
+        setorder(res.data.orders)
+
+    }
+    const changeStatus = async(p_id:number,o_id:string):Promise<void>=>{
+        const res = await axios.post('https://cartify-backend-kzss.onrender.com/seller/change-status',{
+            oredersts,
+            p_id,
+            o_id
+        })
+        console.log(res.data);
+        
+    }
+    useEffect(()=>{
+        fetchCart();
+    },[])
     useEffect(() => {
         fetchproducts();
     }, [myproducts])
     const deleteItem = async (id: string) => {
-        
+
         const res = await axios.delete(`https://cartify-backend-kzss.onrender.com/seller/product-delete/${id}`)
         console.log(res);
         fetchproducts();
@@ -155,7 +191,7 @@ const Seller_Dashboard = () => {
                         </div>
                         <div className='bg-white rounded-md shadow-[0_3px_10px_rgb(0,0,0,0.2)] h-[140px]'>
                             <div className='w-full h-full p-4 flex flex-col gap-3 justify-center'>
-                                <img className='h-[30px] w-[30px]' src={order} alt="money" />
+                                <img className='h-[30px] w-[30px]' src={orders} alt="money" />
                                 <h1 className=' md:text-xl lg:text-3xl font-[500]'>12</h1>
                                 <p className=' md:text-md  lg:text-2xl text-gray-600 font-[400]'>Total Products</p>
                             </div>
@@ -257,21 +293,22 @@ const Seller_Dashboard = () => {
                             ))}
                         </div>
                         <div style={{ display: manageOrder ? "block" : "none" }} className="space-y-3 max-h-[420px] w-[400px] overflow-y-auto">
-                            {[1, 2, 3, 4].map((order) => (
+                            {order.map((order) => (
                                 <div
-                                    key={order}
+                                    key={order.OrderID}
                                     className="flex items-center justify-between rounded-lg border border-gray-200 p-3"
                                 >
                                     <div>
-                                        <h3 className="text-sm font-semibold">#ORD-102{order}</h3>
-                                        <p className="text-xs text-gray-500">Suresh Kumar</p>
-                                        <p className="text-sm">Nike Air Max</p>
-                                        <p className="text-sm font-medium">₹4,999</p>
+                                        <h3 className="text-sm font-semibold">{order.OrderID}</h3>
+                                        <p className="text-xs text-gray-500">{order.order_date}</p>
+                                        <p className="text-sm">{order.product_name}</p>
+                                        <p className="text-sm font-medium">₹{order.price}</p>
                                     </div>
 
                                     <select className="rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:border-black">
-                                        <option>Pending</option>
-                                        <option>Completed</option>
+                                        <option onClick={()=> { setordersts("pending"),changeStatus(order.product_id,order.OrderID);}}>Pending</option>
+                                        <option onClick={()=> { setordersts("shipped"),changeStatus(order.product_id,order.OrderID);}}>Shipped</option>
+                                        <option onClick={()=> { setordersts("delivered"),changeStatus(order.product_id,order.OrderID);}}>Delivered</option>
                                     </select>
                                 </div>
                             ))}
