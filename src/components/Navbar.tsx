@@ -109,12 +109,12 @@ const Navbar = (): JSX.Element => {
                                     <h1 className='text-[20px] font-[400] md:text-[35px]  md:font-[500]'>Welcome User</h1>
                                 </div>
                                 <ul className='ml-3 mt-5 md:mt-8 flex flex-col items-start pb-20 gap-4 md:gap-6'>
-                                    <li className='flex gap-1 items-center font-[500] md:text-xl md:font-[600]'><img className='h-[25px] md:h-[30px]' src={smhome} alt="home" /> Home</li>
-                                    <li className='flex gap-1 items-center font-[500] md:text-xl md:font-[600]'><img className='h-[25px] md:h-[30px]' src={smproducts} alt="products" />Products</li>
-                                    <li className='flex gap-1 items-center font-[500] md:text-xl md:font-[600]'><img className='h-[25px] md:h-[30px]' src={smcart} alt="cart" /> Mycart</li>
-                                    <li className='flex gap-1 items-center font-[500] md:text-xl md:font-[600]'><img className='h-[25px] md:h-[30px]' src={smorders} alt="orders" /> My Orders</li>
-                                    <li className='flex gap-1 items-center font-[500] md:text-xl md:font-[600]'><img className='h-[25px] md:h-[30px]' src={smaccount} alt="account" /> Account</li>
-                                    <li className='flex gap-1 items-center font-[500] md:text-xl md:font-[600]'><img className='h-[25px] md:h-[30px]' src={smnotification} alt="notification" /> Notifications</li>
+                                    <li onClick={()=>{navigate('/home')}} className='flex gap-1 items-center font-[500] md:text-xl md:font-[600]'><img className='h-[25px] md:h-[30px]' src={smhome} alt="home" /> Home</li>
+                                    <li onClick={()=>{navigate('/products')}} className='flex gap-1 items-center font-[500] md:text-xl md:font-[600]'><img className='h-[25px] md:h-[30px]' src={smproducts} alt="products" />Products</li>
+                                    <li onClick={()=>{navigate('/my-cart')}} className='flex gap-1 items-center font-[500] md:text-xl md:font-[600]'><img className='h-[25px] md:h-[30px]' src={smcart} alt="cart" /> Mycart</li>
+                                    <li onClick={()=>{navigate('/my-orders')}} className='flex gap-1 items-center font-[500] md:text-xl md:font-[600]'><img className='h-[25px] md:h-[30px]' src={smorders} alt="orders" /> My Orders</li>
+                                    <li onClick={()=>{navigate('/account')}} className='flex gap-1 items-center font-[500] md:text-xl md:font-[600]'><img className='h-[25px] md:h-[30px]' src={smaccount} alt="account" /> Account</li>
+                                    <li onClick={()=>{navigate('/notifications')}} className='flex gap-1 items-center font-[500] md:text-xl md:font-[600]'><img className='h-[25px] md:h-[30px]' src={smnotification} alt="notification" /> Notifications</li>
 
                                 </ul>
                                 <p className='text-center pb-5 md:font-[600] md:text-[20px]' >Terms & Conditions</p>

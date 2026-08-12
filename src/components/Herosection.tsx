@@ -15,7 +15,7 @@ const Herosection = (): JSX.Element => {
                             <p className='pt-[15px] text-gray-500'>Discover thoughtfully selected essentials designed for everyday style, comfort <br />and confidence.</p>
                             <div className='flex gap-7 pt-[20px]'>
                                 <motion.button whileTap={{ scale: 1, y: 5 }} whileHover={{ scale: 1.1, y: -5 }} transition={{ duration: 0.2 }} className='px-4 py-1 rounded-[8px] md:px-8  md:py-3 text-[17px] font-[400] md:rounded-[15px]   hover:cursor-pointer bg-black text-white' onClick={() => { navigate('/products')}}>Explore Products</motion.button>
-                                <motion.button whileTap={{ scale: 1, y: 5 }} whileHover={{ scale: 1.1, y: -5 }} transition={{ duration: 0.2 }} className=' px-4 py-1 rounded-[8px] shadow-[0_3px_10px_rgb(0,0,0,0.2)]  md:px-8 md:py-3 text-[17px] font-[400] md:rounded-[15px] bg-white text-black'>Go to Cart</motion.button>
+                                <motion.button whileTap={{ scale: 1, y: 5 }} whileHover={{ scale: 1.1, y: -5 }} transition={{ duration: 0.2 }} className=' px-4 py-1 rounded-[8px] shadow-[0_3px_10px_rgb(0,0,0,0.2)]  md:px-8 md:py-3 text-[17px] font-[400] md:rounded-[15px] bg-white text-black' onClick={() => { navigate('/my-cart')}}>Go to Cart</motion.button>
                             </div>
                             <div className='pt-[30px] flex gap-5 text-gray-500'>
                                 <h1>Free Shipping</h1> · <h1>Easy Returns</h1> · <h1>Secure Payments</h1>
