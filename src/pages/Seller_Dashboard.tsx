@@ -9,7 +9,7 @@ import orders from '../assets/seller/parcel.png';
 import pending from '../assets/seller/pending.png';
 import drop from '../assets/drop.png'
 import { useNavigate } from 'react-router-dom';
-import { parse } from 'path';
+
 
 
 const Seller_Dashboard = () => {
@@ -194,7 +194,7 @@ const Seller_Dashboard = () => {
         console.log(res);
         fetchproducts();
     }
-    const revenue = Math.ceil(order.reduce((acc,curr)=>(curr.price + acc),0))
+    const revenue = order.reduce((acc,curr)=>(Number(curr.price) + acc),0)
     return (
         <>
             <nav className='w-full h-max  flex mx-auto justify-center shadow-[0_2px_12px_rgba(0,0,0,0.06)]  p-1 '>
