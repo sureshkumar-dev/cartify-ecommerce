@@ -58,6 +58,8 @@ const Seller_Dashboard = () => {
             console.log(res.data.user);
             setshopname(res.data.sellername)
             setshopmail(res.data.seller.email)
+        
+            
         } catch (err) {
             console.log(err);
         }
@@ -198,7 +200,12 @@ const Seller_Dashboard = () => {
     const [pendingOrders,setpendingOrders] = useState<OrderItem[]>([])
     const countPendingOrders = async():Promise<void> => {
         try{
-            const res = await axios.get('https://cartify-backend-kzss.onrender.com/seller/pendingOrders')
+            const token = localStorage.getItem('sellertoken')
+            const res = await axios.get('https://cartify-backend-kzss.onrender.com/seller/pendingOrders',{
+                headers:{
+                    authorization:token
+                }
+            })
             setpendingOrders(res.data.products)
             console.log(res);
             
