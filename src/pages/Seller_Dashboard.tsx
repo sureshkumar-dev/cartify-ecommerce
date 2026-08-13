@@ -120,9 +120,7 @@ const Seller_Dashboard = () => {
         setmyproducts(res.data.products)
     }
     const [order, setorder] = useState<OrderItem[]>([])
-    const [ordersts, setordersts] = useState<
-        "pending" | "shipped" | "delivered"
-    >("pending");
+
 
     const changeStatus = async (
         status: "pending" | "shipped" | "delivered",
@@ -161,28 +159,27 @@ const Seller_Dashboard = () => {
             console.error("Change status error:", err);
         }
     };
-    const fetchOrders = async (): Promise<void> => {
+    const fetchOrders = async () => {
         try {
-            const token = localStorage.getItem('sellertoken');
+            const token = localStorage.getItem("sellertoken");
 
             if (!token) {
+                navigate("/auth");
                 return;
             }
 
             const res = await axios.get(
-                'https://cartify-backend-kzss.onrender.com/seller/fetch-orders',
+                "https://cartify-backend-kzss.onrender.com/seller/fetch-orders",
                 {
                     headers: {
-                        Authorization: `Bearer ${token}`
-                    }
+                        Authorization: `Bearer ${token}`,
+                    },
                 }
             );
 
-            if (res.data.success) {
-                fetchOrders();
-            }
+            setorder(res.data.orders || []);
         } catch (err) {
-            console.error('Fetch orders error:', err);
+            console.error("Fetch orders error:", err);
         }
     };
     useEffect(() => {
