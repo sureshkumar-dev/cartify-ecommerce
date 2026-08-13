@@ -84,6 +84,15 @@ const Admin_Dashboard = () => {
     useEffect(() => {
         fetchProductRequests()
     }, [products])
+    const [orders,setorders] = useState()
+    const fetchOredrs = async():Promise<void> => {
+        const res = await axios.get('https://cartify-backend-kzss.onrender.com/admin/fetchorders')
+        console.log(res);
+        
+    }
+    useEffect(()=>{
+        fetchOredrs();
+    },[])
     return (
         <div className="min-h-screen bg-gray-100 p-6">
             <div className="mx-auto max-w-7xl">
