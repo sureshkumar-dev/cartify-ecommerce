@@ -124,16 +124,43 @@ const Seller_Dashboard = () => {
         "pending" | "shipped" | "delivered"
     >("pending");
 
-    const changeStatus = async (p_id: number, o_id: string): Promise<void> => {
-        const res = await axios.post('https://cartify-backend-kzss.onrender.com/seller/change-status', {
-            ordersts,
-            p_id,
-            o_id
-        })
-        console.log(res.data);
-        setorder(res.data.product)
+    const changeStatus = async (
+        status: "pending" | "shipped" | "delivered",
+        p_id: number,
+        o_id: string
+    ): Promise<void> => {
+        try {
+            const token = localStorage.getItem("sellertoken");
 
-    }
+            if (!token) {
+                navigate("/auth");
+                return;
+            }
+
+            const res = await axios.post(
+                "https://cartify-backend-kzss.onrender.com/seller/change-status",
+                {
+                    ordersts: status,
+                    p_id,
+                    o_id
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                }
+            );
+
+            console.log(res.data);
+
+            if (res.data.success) {
+                fetchOrders();
+            }
+
+        } catch (err) {
+            console.error("Change status error:", err);
+        }
+    };
     const fetchOrders = async (): Promise<void> => {
         try {
             const token = localStorage.getItem('sellertoken');
@@ -151,7 +178,9 @@ const Seller_Dashboard = () => {
                 }
             );
 
-            setorder(res.data.orders);
+            if (res.data.success) {
+                fetchOrders();
+            }
         } catch (err) {
             console.error('Fetch orders error:', err);
         }
@@ -322,10 +351,19 @@ const Seller_Dashboard = () => {
                                         <p className="text-sm font-medium">₹{order.price}</p>
                                     </div>
 
-                                    <select className="rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:border-black">
-                                        <option onClick={() => { setordersts("pending"), changeStatus(order.product_id, order.OrderID); }}>Pending</option>
-                                        <option onClick={() => { setordersts("shipped"), changeStatus(order.product_id, order.OrderID); }}>Shipped</option>
-                                        <option onClick={() => { setordersts("delivered"), changeStatus(order.product_id, order.OrderID); }}>Delivered</option>
+                                    <select
+                                        value={order.delivery_status}
+                                        onChange={(e) =>
+                                            changeStatus(
+                                                e.target.value as "pending" | "shipped" | "delivered",
+                                                order.product_id,
+                                                order.OrderID
+                                            )
+                                        }
+                                    >
+                                        <option value="pending">Pending</option>
+                                        <option value="shipped">Shipped</option>
+                                        <option value="delivered">Delivered</option>
                                     </select>
                                 </div>
                             ))}
