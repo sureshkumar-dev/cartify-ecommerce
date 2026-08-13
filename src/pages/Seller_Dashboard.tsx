@@ -220,7 +220,7 @@ const Seller_Dashboard = () => {
                         <div className='bg-white rounded-md shadow-[0_3px_10px_rgb(0,0,0,0.2)] h-[140px]'>
                             <div className='w-full h-full p-4 flex flex-col gap-3 justify-center'>
                                 <img className='h-[30px] w-[30px]' src={money} alt="money" />
-                                <h1 className='md:text-xl lg:text-3xl font-[500]'>₹ </h1>
+                                <h1 className='md:text-xl lg:text-3xl font-[500]'>₹{order.reduce((acc,curr)=>(curr.price + acc),0)} </h1>
                                 <p className='md:text-md lg:text-2xl text-gray-600 font-[400]'>Total Revenue</p>
                             </div>
                         </div>
