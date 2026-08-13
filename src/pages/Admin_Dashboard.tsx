@@ -34,12 +34,13 @@ const Admin_Dashboard = () => {
     const [users, setusers] = useState<Users[]>([])
     const [products, setproducts] = useState<Product[]>([]);
     const [sellers, setsellers] = useState<Sellers[]>([])
+    const [ orders , setorders] = useState([]);
   
     const stats = [
         { title: "Total Users", value: users.length, icon: Users },
         { title: "Total Sellers", value: sellers.length, icon: Store },
         { title: "Pending Requests", value: products.length, icon: PackageCheck },
-        { title: "Total Orders", value: "45,210", icon: ShoppingBag },
+        { title: "Total Orders", value: orders.length, icon: ShoppingBag },
     ];
 
 
@@ -84,12 +85,12 @@ const Admin_Dashboard = () => {
     useEffect(() => {
         fetchProductRequests()
     }, [])
-    const [orders,setorders] = useState()
+    
     const fetchOrders = async():Promise<void> => {
         const res = await axios.get('https://cartify-backend-kzss.onrender.com/admin/fetchorders')
         console.log(res);
         setorders(res.data.orders)
-        console.log(orders);
+        
         
         
     }
