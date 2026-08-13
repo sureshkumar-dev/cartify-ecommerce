@@ -88,6 +88,9 @@ const Admin_Dashboard = () => {
     const fetchOredrs = async():Promise<void> => {
         const res = await axios.get('https://cartify-backend-kzss.onrender.com/admin/fetchorders')
         console.log(res);
+        setorders(res.data.orders)
+        console.log(orders);
+        
         
     }
     useEffect(()=>{
