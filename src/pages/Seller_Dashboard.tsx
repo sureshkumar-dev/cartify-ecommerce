@@ -193,7 +193,7 @@ const Seller_Dashboard = () => {
         console.log(res);
         fetchproducts();
     }
-    const revenue = order.reduce((acc,curr)=>(curr.price + acc),0)
+    const revenue = Number(order.reduce((acc,curr)=>(curr.price + acc),0))
     return (
         <>
             <nav className='w-full h-max  flex mx-auto justify-center shadow-[0_2px_12px_rgba(0,0,0,0.06)]  p-1 '>
