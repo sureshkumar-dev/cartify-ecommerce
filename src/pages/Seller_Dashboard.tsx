@@ -123,7 +123,7 @@ const Seller_Dashboard = () => {
     const [ordersts, setordersts] = useState<
         "pending" | "shipped" | "delivered"
     >("pending");
-    
+
     const changeStatus = async (p_id: number, o_id: string): Promise<void> => {
         const res = await axios.post('https://cartify-backend-kzss.onrender.com/seller/change-status', {
             ordersts,
@@ -134,7 +134,31 @@ const Seller_Dashboard = () => {
         setorder(res.data.product)
 
     }
-  
+    const fetchOrders = async (): Promise<void> => {
+        try {
+            const token = localStorage.getItem('sellertoken');
+
+            if (!token) {
+                return;
+            }
+
+            const res = await axios.get(
+                'https://cartify-backend-kzss.onrender.com/seller/fetch-orders',
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                }
+            );
+
+            setorder(res.data.orders);
+        } catch (err) {
+            console.error('Fetch orders error:', err);
+        }
+    };
+    useEffect(() => {
+        fetchOrders();
+    }, []);
     useEffect(() => {
         fetchproducts();
     }, [])
@@ -258,7 +282,7 @@ const Seller_Dashboard = () => {
                                 </div>
                             </div>
                         </div>
-                        <div style={{ display: manageProduct ? "block" : "none" }} className="hidden space-y-3 max-h-[420px] w-[400px] overflow-y-auto">
+                        <div style={{ display: manageProduct ? "block" : "none" }} className=" space-y-3 max-h-[420px] w-[400px] overflow-y-auto">
                             {myproducts?.map((item) => (
                                 <div
                                     key={item.product_id}
