@@ -293,54 +293,7 @@ const Admin_Dashboard = () => {
                 </div>
 
 
-                <div className="mt-8 rounded-2xl bg-white p-6 shadow">
-
-                    <h2 className="mb-5 text-2xl font-semibold">
-                        Recent Orders
-                    </h2>
-
-                    <div className="h-[350px] space-y-4 overflow-y-auto pr-2">
-
-                        {[1, 2, 3, 4, 5].map((item) => (
-
-                            <div
-                                key={item}
-                                className="flex items-center justify-between rounded-xl border p-4"
-                            >
-
-                                <div>
-
-                                    <h3 className="font-semibold">
-                                        Order #ORD-100{item}
-                                    </h3>
-
-                                    <p className="text-sm text-gray-500">
-                                        Customer : Suresh Kumar
-                                    </p>
-
-                                    <p className="text-sm text-gray-500">
-                                        ₹2,499
-                                    </p>
-
-                                </div>
-
-                                <select className="rounded-lg border px-4 py-2 outline-none">
-
-                                    <option>Pending</option>
-
-                                    <option>Approved</option>
-
-                                    <option>Rejected</option>
-
-                                </select>
-
-                            </div>
-
-                        ))}
-
-                    </div>
-
-                </div>
+                
 
             </div>
         </div>
