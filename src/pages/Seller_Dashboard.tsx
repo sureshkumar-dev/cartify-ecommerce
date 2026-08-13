@@ -195,6 +195,20 @@ const Seller_Dashboard = () => {
         fetchproducts();
     }
     const revenue = order.reduce((acc,curr)=>(Number(curr.price) + acc),0)
+    const [pendingOrders,setpendingOrders] = useState<OrderItem[]>([])
+    const countPendingOrders = async():Promise<void> => {
+        try{
+            const res = await axios.get('https://cartify-backend-kzss.onrender.com/seller/pendingOrders')
+            setpendingOrders(res.data.products)
+            console.log(res);
+            
+        }catch(err){
+
+        }
+    }
+    useEffect(()=>{
+        countPendingOrders();
+    },[])
     return (
         <>
             <nav className='w-full h-max  flex mx-auto justify-center shadow-[0_2px_12px_rgba(0,0,0,0.06)]  p-1 '>
