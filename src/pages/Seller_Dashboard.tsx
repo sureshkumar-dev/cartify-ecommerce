@@ -35,12 +35,11 @@ const Seller_Dashboard = () => {
         product_id: number;
         product_name: string;
         product_img: string;
-        storename: string;
         price: number;
         quantity: number;
-        delivery_status: string;
-        OrderID: string,
-        order_date: string
+        delivery_status: "pending" | "shipped" | "delivered";
+        OrderID: string;
+        order_date: string;
     };
     const [myproducts, setmyproducts] = useState<Product[]>()
     const logoutfn = () => {
@@ -149,10 +148,10 @@ const Seller_Dashboard = () => {
                 }
             );
 
-            console.log(res.data);
+            console.log("Status update:", res.data);
 
             if (res.data.success) {
-                fetchOrders();
+                await fetchOrders();
             }
 
         } catch (err) {
